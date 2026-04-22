@@ -1,7 +1,7 @@
 package clases;
 
 // El 'Nodo' consiste una clase que actúa como el punto de partida del árbol, tal que tiene una estructura [ E | * || * ]... no puede tener ningún nodo por detrás
-public class Nodo<T> {
+public class Nodo<T extends Comparable<T>> {
     // Atributos necesarios para el nodo...
     private Elemento<T> inicial;            // E:valor (se le llama inicial para facilitar notación)
     private Nodo<T> izquierda;              // opción 1: izquierda
@@ -43,5 +43,4 @@ public class Nodo<T> {
     public void setDerecha(Nodo<T> derecha) {
         this.derecha = derecha;
     }
-
 }

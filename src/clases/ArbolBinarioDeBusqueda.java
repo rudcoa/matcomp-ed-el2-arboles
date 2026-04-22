@@ -1,9 +1,8 @@
 package clases;
-
 import java.util.List;
 
 // TAD ÁRBOL BINARIO DE BÚSQUEDA
-public class  ArbolBinarioDeBusqueda<T> implements InterfazABDB<T>, Comparable<T> {
+public class  ArbolBinarioDeBusqueda<T extends Comparable<T>> implements InterfazABDB<T> {
     // Elemento imprescindible de la estructura/arquitectura de este TAD...
     private Nodo<T> raiz;
     // 1. "¿incluir grado como parámetro en el TAD o en los nodos?"
@@ -29,9 +28,32 @@ public class  ArbolBinarioDeBusqueda<T> implements InterfazABDB<T>, Comparable<T
 
         // CASO 2: Si el nodo raiz ya no está vacío
         else {
-            Nodo<T> copia = this.raiz;
-            T valor = copia.getInicial().getValor();
+            T valor = raiz.getInicial().getValor();
             T otrovalor = elemento.getValor();
+            // AQUÍ IRIA EL METODO COMPARE TO Y SERIA:
+            if (otrovalor.compareTo(valor) < 0) {
+                // Y ahora hay que ver si no está vacío o no
+                if (raiz.getIzquierda() == null) {
+                    raiz.setIzquierda(new Nodo<>(elemento));
+                }
+                // Si no estuviese vacio
+                else {
+                    ArbolBinarioDeBusqueda<T> arbol = new ArbolBinarioDeBusqueda<>(raiz.getIzquierda());
+                    arbol.add(elemento);
+                }
+            }
+            // En este caso es si el valor fuese mayor...
+            else {
+                // Si no hay nada a la derecha, se establece el nuevo nodo
+                if (raiz.getDerecha() == null) {
+                    raiz.setDerecha(new Nodo<>(elemento));
+                }
+                // Lo mismo en caso de que toque ir a la derecha
+                else {
+                    ArbolBinarioDeBusqueda<T> arbol = new ArbolBinarioDeBusqueda<>(raiz.getDerecha());
+                    arbol.add(elemento);
+                }
+            }
         }
     }
 
@@ -52,7 +74,10 @@ public class  ArbolBinarioDeBusqueda<T> implements InterfazABDB<T>, Comparable<T
     public boolean isArbolEmpty() {
         // Siempre falso
         boolean b = false;
-        // Si los tres nodos están vacíos (debería de ser lo mismo que preguntar, "¿hay raíz?"), entonces, es verdad
+        // Si el único nodo del árbol está vacío (debería de ser lo mismo que preguntar, "¿hay raíz?"), entonces, es verdad
+        if (raiz == null) {
+            b = true;
+        }
         return b;
     }
 
@@ -107,8 +132,8 @@ public class  ArbolBinarioDeBusqueda<T> implements InterfazABDB<T>, Comparable<T
         return List.of();
     }
 
-    @Override
-    public int compareTo(T o) {
-        return 0;
-    }
+    // SEA LA LISTA: [9,7,3,5,8,10,22]
+    // PREORDEN: (sale la misma lista)
+    // POSTORDEN: [5,3,8,7,22,10,9]
+    // ORDEN CENTRAL: [3,5,7,8,9,10,22] (lista ordenada)
 }

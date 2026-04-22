@@ -1,7 +1,7 @@
 package clases;
 import java.util.List;
 
-public interface InterfazABDB<T> {
+public interface InterfazABDB<T extends Comparable<T>> {
     // Metodo para calcular el grado del árbol (al ser binario, siempre es dos)
     int getGrado();
     // Metodo para obtener la altura del arbol
