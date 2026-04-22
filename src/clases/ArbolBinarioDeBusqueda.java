@@ -3,24 +3,36 @@ package clases;
 import java.util.List;
 
 // TAD ÁRBOL BINARIO DE BÚSQUEDA
-public class  ArbolBinarioDeBusqueda<T> implements InterfazABDB<T> {
-    // Elementos imprescindibles de la estructura/arquitectura de este TAD...
-    private NodoRaiz<T> raiz;
-    private NodoRama<T> rama;
-    private NodoHoja<T> hoja;
+public class  ArbolBinarioDeBusqueda<T> implements InterfazABDB<T>, Comparable<T> {
+    // Elemento imprescindible de la estructura/arquitectura de este TAD...
+    private Nodo<T> raiz;
     // 1. "¿incluir grado como parámetro en el TAD o en los nodos?"
     // 2. "no hay metodo remove(), porque si no, ¿eso quitaría todas las aristas asociadas al vértice no? o hay otra manera de quitar el dato asociado al nodo"
 
+    // Constructor POR DEFECTO del árbol binario
+    public ArbolBinarioDeBusqueda() {
+        this.raiz = null;
+    }
+
     // Constructor del árbol binario
-    public ArbolBinarioDeBusqueda(NodoRaiz<T> raiz, NodoRama<T> rama, NodoHoja<T> hoja) {
+    public ArbolBinarioDeBusqueda(Nodo<T> raiz) {
         this.raiz = raiz;
-        this.rama = rama;
-        this.hoja = hoja;
     }
 
     // Metodo para añadir elementos al arbol
     public void add(Elemento<T> elemento) {
+        // CASO 1: Si el nodo raiz está vacío
+        if (raiz == null) {
+            Nodo<T> nuevo = new Nodo<>(elemento);
+            this.raiz = nuevo;
+        }
 
+        // CASO 2: Si el nodo raiz ya no está vacío
+        else {
+            Nodo<T> copia = this.raiz;
+            T valor = copia.getInicial().getValor();
+            T otrovalor = elemento.getValor();
+        }
     }
 
     /* Metodo para obtener el subárbol de la izquierda
@@ -76,7 +88,7 @@ public class  ArbolBinarioDeBusqueda<T> implements InterfazABDB<T> {
     }
 
     @Override
-    public List<NodoRama<T>> getCamino() {
+    public List<Nodo<T>> getCamino() {
         return List.of();
     }
 
@@ -93,5 +105,10 @@ public class  ArbolBinarioDeBusqueda<T> implements InterfazABDB<T> {
     @Override
     public List<T> getListaOrdenCentral() {
         return List.of();
+    }
+
+    @Override
+    public int compareTo(T o) {
+        return 0;
     }
 }

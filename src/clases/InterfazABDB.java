@@ -15,7 +15,7 @@ public interface InterfazABDB<T> {
     // Metodo para ver si el arbol está CASI COMPLETO
     boolean isArbolCasiCompleto();
     // Metodo para obtener el camino (¿de un nodo a otro?)
-    List<NodoRama<T>> getCamino();
+    List<Nodo<T>> getCamino();
     // Se van a crear tres tipos de listas diferentes del árbol según el orden de la obtención de sus datos
     List<T> getListaPreorden();             // recorrido 1:
     List<T> getListaPostorden();            // recorrido 2:
