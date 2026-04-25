@@ -72,13 +72,7 @@ public class  ArbolBinarioDeBusqueda<T extends Comparable<T>> implements Interfa
 
     // Metodo para comprobar si el árbol está vacio
     public boolean isArbolEmpty() {
-        // Siempre falso
-        boolean b = false;
-        // Si el único nodo del árbol está vacío (debería de ser lo mismo que preguntar, "¿hay raíz?"), entonces, es verdad
-        if (raiz == null) {
-            b = true;
-        }
-        return b;
+        return raiz == null;
     }
 
     // METODOS QUE HAN SIDO IMPLEMENTADOS POR LA INTERFAZ
