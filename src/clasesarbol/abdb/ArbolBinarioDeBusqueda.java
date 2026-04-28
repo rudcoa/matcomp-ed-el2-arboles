@@ -1,10 +1,10 @@
-package clases;
-import java.util.List;
+package clasesarbol.abdb;
+import extra.Lista;
 
 // TAD ÁRBOL BINARIO DE BÚSQUEDA
 public class  ArbolBinarioDeBusqueda<T extends Comparable<T>> implements InterfazABDB<T> {
     // Elemento imprescindible de la estructura/arquitectura de este TAD...
-    private Nodo<T> raiz;
+    private NodoArbol<T> raiz;
     // 1. "¿incluir grado como parámetro en el TAD o en los nodos?"
     // 2. "no hay metodo remove(), porque si no, ¿eso quitaría todas las aristas asociadas al vértice no? o hay otra manera de quitar el dato asociado al nodo"
 
@@ -14,7 +14,7 @@ public class  ArbolBinarioDeBusqueda<T extends Comparable<T>> implements Interfa
     }
 
     // Constructor del árbol binario
-    public ArbolBinarioDeBusqueda(Nodo<T> raiz) {
+    public ArbolBinarioDeBusqueda(NodoArbol<T> raiz) {
         this.raiz = raiz;
     }
 
@@ -22,7 +22,7 @@ public class  ArbolBinarioDeBusqueda<T extends Comparable<T>> implements Interfa
     public void add(Elemento<T> elemento) {
         // CASO 1: Si el nodo raiz está vacío
         if (raiz == null) {
-            Nodo<T> nuevo = new Nodo<>(elemento);
+            NodoArbol<T> nuevo = new NodoArbol<>(elemento);
             this.raiz = nuevo;
         }
 
@@ -33,20 +33,19 @@ public class  ArbolBinarioDeBusqueda<T extends Comparable<T>> implements Interfa
             // AQUÍ IRIA EL METODO COMPARE TO Y SERIA:
             if (otrovalor.compareTo(valor) < 0) {
                 // Y ahora hay que ver si no está vacío o no
-                if (raiz.getIzquierda() == null) {
-                    raiz.setIzquierda(new Nodo<>(elemento));
+                NodoArbol<T> copia = raiz.getIzquierda();
+                if (copia == null) {
+                    raiz.setIzquierda(new NodoArbol<>(elemento));
                 }
                 // Si no estuviese vacio
                 else {
-                    ArbolBinarioDeBusqueda<T> arbol = new ArbolBinarioDeBusqueda<>(raiz.getIzquierda());
-                    arbol.add(elemento);
                 }
             }
             // En este caso es si el valor fuese mayor...
             else {
                 // Si no hay nada a la derecha, se establece el nuevo nodo
                 if (raiz.getDerecha() == null) {
-                    raiz.setDerecha(new Nodo<>(elemento));
+                    raiz.setDerecha(new NodoArbol<>(elemento));
                 }
                 // Lo mismo en caso de que toque ir a la derecha
                 else {
@@ -59,14 +58,14 @@ public class  ArbolBinarioDeBusqueda<T extends Comparable<T>> implements Interfa
 
     // Metodo para obtener el subárbol de la izquierda - SON METODOS EQUIVALENTES
     public ArbolBinarioDeBusqueda<T> getSubArbolIzquierda() {
-        Nodo<T> copia = raiz;
+        NodoArbol<T> copia = raiz;
         // 1. HAY QUE VER QUE LA RAIZ NO ESTÉ VACÍA
         if (copia == null) {
             // No se puede devolver ningún subárbol binario...
             System.out.println("No hay subárboles que se puedan devolver ya que este arbol no contiene ningún dato");
         }
         // 2. EN CASO DE QUE NO ESTÉ VACÍA -> Izquierda
-        Nodo<T> nuevaraiz = copia.getIzquierda();
+        NodoArbol<T> nuevaraiz = copia.getIzquierda();
         if (nuevaraiz == null) {
             System.out.println("Este subárbol está vacío");
         }
@@ -76,14 +75,14 @@ public class  ArbolBinarioDeBusqueda<T extends Comparable<T>> implements Interfa
 
     // Metodo para obtener el subárbol de la derecha - SON METODOS EQUIVALENTES
     public ArbolBinarioDeBusqueda<T> getSubArbolDerecha() {
-        Nodo<T> copia = raiz;
+        NodoArbol<T> copia = raiz;
         //1. TENEMOS QUE VER QUE LA RAÍZ NO ESTÉ VACÍA
         if (copia == null) {
             // No se puede devolver ningún subárbol binario...
             System.out.println("No hay subárboles que se puedan devolver");
         }
         // 2. EN CASO DE QUE NO ESTÉ VACÍA -> Derecha
-        Nodo<T> nuevaraiz = copia.getDerecha();
+        NodoArbol<T> nuevaraiz = copia.getDerecha();
         if (nuevaraiz == null) {
             System.out.println("Este subárbol está vacío");
         }
@@ -106,7 +105,7 @@ public class  ArbolBinarioDeBusqueda<T extends Comparable<T>> implements Interfa
 
     @Override
     public int getAltura() {
-        Nodo<T> copia = raiz;
+        NodoArbol<T> copia = raiz;
         // Inicializamos unos contadores que simbolizan qué hay a la derecha y a la izquierda
         int izquierda = 0;
         int derecha = 0;
@@ -131,8 +130,8 @@ public class  ArbolBinarioDeBusqueda<T extends Comparable<T>> implements Interfa
     }
 
     @Override
-    public List<T> getListaDatosNivel(int nivel) {
-        return List.of();
+    public Lista<T> getListaDatosNivel(int nivel) {
+        return Lista.of();
     }
 
     @Override
@@ -151,23 +150,23 @@ public class  ArbolBinarioDeBusqueda<T extends Comparable<T>> implements Interfa
     }
 
     @Override
-    public List<Nodo<T>> getCamino() {
-        return List.of();
+    public Lista<NodoArbol<T>> getCamino() {
+        return Lista();
     }
 
     // SEA LA LISTA: [9,7,3,5,8,10,22]
     @Override
-    public List<T> getListaPreorden() {         // PREORDEN: (sale la misma lista)
-        return List.of();
+    public Lista<T> getListaPreorden() {         // PREORDEN: (sale la misma lista)
+        return Lista.of();
     }
 
     @Override
-    public List<T> getListaPostorden() {        // POSTORDEN: [5,3,8,7,22,10,9]
-        return List.of();
+    public Lista<T> getListaPostorden() {        // POSTORDEN: [5,3,8,7,22,10,9]
+        return Lista.of();
     }
 
     @Override
-    public List<T> getListaOrdenCentral() {     // ORDEN CENTRAL: [3,5,7,8,9,10,22] (lista ordenada)
-        return List.of();
+    public Lista<T> getListaOrdenCentral() {     // ORDEN CENTRAL: [3,5,7,8,9,10,22] (lista ordenada)
+        return Lista.of();
     }
 }

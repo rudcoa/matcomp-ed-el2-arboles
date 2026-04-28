@@ -1,14 +1,14 @@
-package clases;
+package clasesarbol.abdb;
 
-// El 'Nodo' consiste una clase que actúa como el punto de partida del árbol, tal que tiene una estructura [ E | * || * ]... no puede tener ningún nodo por detrás
-public class Nodo<T> {
+// El 'NodoArbol' consiste una clase que actúa como el punto de partida del árbol, tal que tiene una estructura [ E | * || * ]... no puede tener ningún nodo por detrás
+public class NodoArbol<T> {
     // Atributos necesarios para el nodo...
     private Elemento<T> inicial;            // E:valor (se le llama inicial para facilitar notación)
-    private Nodo<T> izquierda;              // opción 1: izquierda
-    private Nodo<T> derecha;                // opción 2: derecha
+    private NodoArbol<T> izquierda;              // opción 1: izquierda
+    private NodoArbol<T> derecha;                // opción 2: derecha
 
     // ¡Constructor del nodo!
-    public Nodo(Elemento<T> inicial) {
+    public NodoArbol(Elemento<T> inicial) {
         this.inicial = inicial;
         this.izquierda = null;
         this.derecha = null;
@@ -25,22 +25,22 @@ public class Nodo<T> {
     }
 
     // Getter de la rama que se bifurca hacia la izquierda
-    public Nodo<T> getIzquierda() {
+    public NodoArbol<T> getIzquierda() {
         return izquierda;
     }
 
     // Setter de los subárboles bifurcados hacia la izquierda
-    public void setIzquierda(Nodo<T> izquierda) {
+    public void setIzquierda(NodoArbol<T> izquierda) {
         this.izquierda = izquierda;
     }
 
     // Getter de la rama que se bifurca hacia la derecha
-    public Nodo<T> getDerecha() {
+    public NodoArbol<T> getDerecha() {
         return derecha;
     }
 
     // Setter de los subárboles bifurcados hacia la derecha
-    public void setDerecha(Nodo<T> derecha) {
+    public void setDerecha(NodoArbol<T> derecha) {
         this.derecha = derecha;
     }
 }

@@ -1,4 +1,4 @@
-package clases;
+package clasesarbol.abdb;
 
 // Se crea una clase 'Elemento' que está parametrizada por el tipo T, y actúa como el dato que se va a introducir dentro de un nodo del árbol
 public class Elemento <T> {
