@@ -13,7 +13,7 @@ public class Grafo {
     }
 
     // ¿Cómo podríamos buscar un vértice dentro del conjunto de los vértices? Solo hay que hacerlo según su identificador...
-    public Vertice<DatoVertice> buscarVertice(Long id) {
+    public Vertice<DatoVertice> buscarVertice(long id) {
         // Se copia la cabeza del conjunto es decir, la lista de los vértices
         NodoLista<Vertice<DatoVertice>> actual = vertices.getElementos().getCabeza();
 
@@ -31,25 +31,35 @@ public class Grafo {
         return null;
     }
 
-    public void agregarVertice(Long id, DV dato) {
+    // Y, ¿cómo se haría para poder agregar un nuevo vértice?
+    public void agregarVertice(long id, DatoVertice dato) {
+        // Se crea un nuevo vértice que contenga al identificador, y al dato que nosotros hemos pasado como parámetros
+        Vertice<DatoVertice> v = new Vertice<>(id, dato);
 
-        Vertice<DV> v = new Vertice<>(id, dato);
-
+        // Si no está contenido en el conjunto (y por ende, en la lista), entonces se insertará
         if (!vertices.contiene(v)) {
             vertices.insertar(v);
         }
     }
 
-    public void agregarArista(Long id, DA dato, Long idOrigen, Long idDestino) {
+    // Para las aristas, sigue la misma estructura
+    public void agregarArista(Long id, DatoArista dato, long idorigen, long iddestino) {
+        // Primeramente, se buscan los vértices correspondientes según los identificadores que nosotros hemos pasado como argumentos
+        Vertice<DatoVertice> origen = buscarVertice(idorigen);
+        Vertice<DatoVertice> destino = buscarVertice(iddestino);
 
-        Vertice<DV> origen = buscarVertice(idOrigen);
-        Vertice<DV> destino = buscarVertice(idDestino);
+        // Hay un caso muy especial que es, que si la arista no posee origen o destino, entonces no es posible crearla (o añadirla formalmente al grafo)
+        if (origen == null || destino == null) {
+            // Porque por definición, una arista debe conectar a dos puntos, no puede ser algo tipo: "A -> null"
+            return;
+        }
 
-        if (origen == null || destino == null) return;
+        // Si no ha sucedido lo anterior, podemos proceder a crear a la arista
+        Arista<DatoArista, DatoVertice> a = new Arista<>(id, dato, origen, destino);
 
-        Arista<DA, DV> a = new Arista<>(id, dato, origen, destino);
-
+        // Y hacemos lo mismo que en buscarVertice() ya que ambos tienen la estructura de un conjunto
         if (!aristas.contiene(a)) {
+            // Es decir, si a ∉ Aristas -> ¡insertarla en el conjunto de las aristas!
             aristas.insertar(a);
         }
     }
